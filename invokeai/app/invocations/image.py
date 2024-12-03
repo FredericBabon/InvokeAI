@@ -406,8 +406,8 @@ class ImageResizeInvocation(BaseInvocation, WithMetadata, WithBoard):
             (self.width, self.height),
             resample=resample_mode,
         )
-
-        image_dto = context.images.save(image=resize_image)
+        _metadata = context.images.get_metadata(self.image.image_name)
+        image_dto = context.images.save(image=resize_image,metadata=_metadata)
 
         return ImageOutput.build(image_dto)
 
@@ -917,8 +917,8 @@ class SaveImageInvocation(BaseInvocation, WithMetadata, WithBoard):
 
     def invoke(self, context: InvocationContext) -> ImageOutput:
         image = context.images.get_pil(self.image.image_name)
-
-        image_dto = context.images.save(image=image)
+        _metadata = context.images.get_metadata(self.image.image_name)
+        image_dto = context.images.save(image=image,metadata=_metadata)
 
         return ImageOutput.build(image_dto)
 

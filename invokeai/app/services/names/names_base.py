@@ -6,6 +6,6 @@ class NameServiceBase(ABC):
 
     # TODO: Add customizable naming schemes
     @abstractmethod
-    def create_image_name(self) -> str:
+    def create_image_name(self, prefix="") -> str:
         """Creates a name for an image."""
         pass

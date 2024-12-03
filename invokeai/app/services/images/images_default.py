@@ -50,8 +50,16 @@ class ImageService(ImageServiceABC):
 
         if image_category not in ImageCategory:
             raise InvalidImageCategoryException
-
-        image_name = self.__invoker.services.names.create_image_name()
+        
+        if metadata != None:
+            self.__invoker.services.logger.debug("ImageService Imported metadata:"+str(metadata))
+            import json
+            parsed_metadata = json.loads(str(metadata))
+            originalfilename=parsed_metadata["filename"]
+            self.__invoker.services.logger.debug("ImageService originalfilename:"+str(originalfilename))
+            image_name = self.__invoker.services.names.create_image_name(originalfilename)
+        else:
+            image_name = self.__invoker.services.names.create_image_name()
 
         (width, height) = image.size
 

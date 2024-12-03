@@ -198,6 +198,8 @@ class ImagesInterface(InvocationContextInterface):
             metadata_ = metadata.model_dump_json()
         elif isinstance(self._data.invocation, WithMetadata) and self._data.invocation.metadata:
             metadata_ = self._data.invocation.metadata.model_dump_json()
+        
+        self._services.logger.debug("ImagesInterface Imported metadata:"+str(metadata_))
 
         # If `board_id` is provided directly, use that. Else, use the board provided by `WithBoard`, falling back to None.
         board_id_ = None
