@@ -72,8 +72,11 @@ async def upload_image(
     metadata_raw = metadata if isinstance(metadata, str) else pil_image.info.get("invokeai_metadata", None)
     if isinstance(metadata_raw, str):
         _metadata = metadata_raw
+        ApiDependencies.invoker.services.logger.debug("Imported metadata:"+str(_metadata))
     else:
         ApiDependencies.invoker.services.logger.debug("Failed to parse metadata for uploaded image")
+        _metadata = "{\"filename\":\""+file.filename+"\"}"
+        ApiDependencies.invoker.services.logger.debug("Defined metadata:"+str(_metadata))
         pass
 
     # attempt to parse workflow from image

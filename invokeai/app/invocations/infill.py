@@ -59,7 +59,8 @@ class InfillImageProcessorInvocation(BaseInvocation, WithMetadata, WithBoard):
         infilled_image = self.infill(input_image)
 
         # Create ImageDTO for Infilled Image
-        infilled_image_dto = context.images.save(image=infilled_image)
+        _metadata = context.images.get_metadata(self.image.image_name)
+        infilled_image_dto = context.images.save(image=infilled_image,metadata=_metadata)
 
         # Return Infilled Image
         return ImageOutput.build(infilled_image_dto)

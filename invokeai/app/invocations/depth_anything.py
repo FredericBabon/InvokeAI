@@ -41,5 +41,7 @@ class DepthAnythingDepthEstimationInvocation(BaseInvocation, WithMetadata, WithB
             assert isinstance(depth_anything_detector, DepthAnythingPipeline)
             depth_map = depth_anything_detector.generate_depth(image)
 
-        image_dto = context.images.save(image=depth_map)
+        _metadata = context.images.get_metadata(self.image.image_name)
+        image_dto = context.images.save(image=depth_map,metadata=_metadata)
+        
         return ImageOutput.build(image_dto)
